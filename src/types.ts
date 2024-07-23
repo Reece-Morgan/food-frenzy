@@ -13,4 +13,5 @@ export type BasketItem = {
   name: string;
   price: number;
   id: number;
+  quantity: number;
 };

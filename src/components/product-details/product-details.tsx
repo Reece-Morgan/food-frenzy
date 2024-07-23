@@ -16,6 +16,7 @@ function ProductDetails({ product }: Props) {
       name: item.name,
       price: item.price,
       id: item.id,
+      quantity: 1,
     };
     dispatch(addItemToBasket(basketItem));
   };

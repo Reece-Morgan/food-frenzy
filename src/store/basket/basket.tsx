@@ -1,13 +1,8 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { BasketItem } from "../../types";
 
 export type Basket = {
   basket: BasketItem[];
-};
-
-type BasketItem = {
-  name: string;
-  price: number;
-  id: number;
 };
 
 const initialState: Basket = {
@@ -19,7 +14,16 @@ const BasketSlice = createSlice({
   initialState,
   reducers: {
     addItemToBasket: (state, action: PayloadAction<BasketItem>) => {
-      state.basket.push(action.payload);
+      const existingItem = state.basket.findIndex(
+        (item: BasketItem) => item.id === action.payload.id
+      );
+      if (existingItem === -1) {
+        // item doesn't exist in basket, so add new item
+        state.basket.push(action.payload);
+      } else {
+        // item does exist in basket, so only increase quantity
+        state.basket[existingItem].quantity += action.payload.quantity;
+      }
     },
     removeItemFromBasket: (state, action: PayloadAction<BasketItem>) => {
       state.basket = state.basket.filter(

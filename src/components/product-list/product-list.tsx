@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Product } from "../../types";
+import ProductDetails from "../product-details/product-details";
 
 function ProductList() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -23,7 +24,7 @@ function ProductList() {
       ) : (
         <>
           {products.map((product: Product) => (
-            <p key={product.id}>{product.name}</p>
+            <ProductDetails key={product.id} product={product} />
           ))}
         </>
       )}

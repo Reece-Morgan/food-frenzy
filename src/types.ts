@@ -8,3 +8,9 @@ export type Product = {
   description: string;
   price: number;
 };
+
+export type BasketItem = {
+  name: string;
+  price: number;
+  id: number;
+};

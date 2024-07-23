@@ -1,12 +1,25 @@
 import styled from "styled-components";
-import { Product } from "../../types";
+import { BasketItem, Product } from "../../types";
 import colours from "../../settings/colours";
+import { useDispatch } from "react-redux";
+import { addItemToBasket } from "../../store/basket/basket";
 
 interface Props {
   product: Product;
 }
 
 function ProductDetails({ product }: Props) {
+  const dispatch = useDispatch();
+
+  const addProductToBasket = (item: Product) => {
+    const basketItem: BasketItem = {
+      name: item.name,
+      price: item.price,
+      id: item.id,
+    };
+    dispatch(addItemToBasket(basketItem));
+  };
+
   return (
     <>
       <Details>
@@ -14,7 +27,7 @@ function ProductDetails({ product }: Props) {
         <Cost>£{product.price}</Cost>
       </Details>
       <Description>{product.description}</Description>
-      <Button>Add to Basket</Button>
+      <Button onClick={() => addProductToBasket(product)}>Add to Basket</Button>
     </>
   );
 }

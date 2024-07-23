@@ -4,16 +4,18 @@ import styled from "styled-components";
 
 const Layout = () => {
   return (
-    <Wrapper>
+    <>
       <Header />
 
-      <Outlet />
-    </Wrapper>
+      <Content>
+        <Outlet />
+      </Content>
+    </>
   );
 };
 
 export default Layout;
 
-const Wrapper = styled.div`
-  margin: 0 20px;
+const Content = styled.div`
+  padding: 0 20px;
 `;

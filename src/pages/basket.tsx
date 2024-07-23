@@ -1,5 +1,7 @@
+import Basket from "../components/basket/basket";
+
 function BasketPage() {
-  return <p>This is the basket page</p>;
+  return <Basket />;
 }
 
 export default BasketPage;

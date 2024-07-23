@@ -107,7 +107,7 @@ const Description = styled.p`
   margin: 5px 0 15px 0;
 `;
 
-const AmountWrapper = styled.div`
+const AmountWrapper = styled.span`
   display: flex;
   gap: 20px;
   margin: 5px 0 0 0;

@@ -3,7 +3,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
-// import { CustomReducer } from "./custom-reducer";
+import { BasketReducer } from "./basket/basket";
 
 const persistConfig = {
   key: "root",
@@ -11,7 +11,7 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-  // Custom: CustomReducer,
+  Basket: BasketReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

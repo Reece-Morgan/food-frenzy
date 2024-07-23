@@ -1,25 +1,40 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import colours from "../../settings/colours";
+import breakpoints from "../../settings/breakpoints";
 
 function Header() {
   return (
-    <header>
-      <Title>Food Frenzy</Title>
+    <StyledHeader>
+      <Link to="/">
+        <Title>Food Frenzy</Title>
+      </Link>
       <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
+        <List>
+          <ListItem>
+            <Link to="/">Products</Link>
+          </ListItem>
+          <ListItem>
             <Link to="/basket">Basket</Link>
-          </li>
-        </ul>
+          </ListItem>
+        </List>
       </nav>
-    </header>
+    </StyledHeader>
   );
 }
 
 export default Header;
+
+const StyledHeader = styled.header`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media (min-width: ${breakpoints.sm}) {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+`;
 
 const Title = styled.h1`
   font-size: 2rem;
@@ -27,5 +42,15 @@ const Title = styled.h1`
   letter-spacing: 0.15rem;
   text-transform: uppercase;
   width: fit-content;
-  color: #fb5858;
+  color: ${colours.primary};
 `;
+
+const List = styled.ul`
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 20px;
+`;
+
+const ListItem = styled.li``;

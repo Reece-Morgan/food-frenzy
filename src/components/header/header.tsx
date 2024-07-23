@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import colours from "../../settings/colours";
-import breakpoints from "../../settings/breakpoints";
 import StyledLink from "../link/link";
 
 function Header() {

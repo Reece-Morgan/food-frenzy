@@ -25,14 +25,38 @@ const BasketSlice = createSlice({
         state.basket[existingItem].quantity += action.payload.quantity;
       }
     },
-    removeItemFromBasket: (state, action: PayloadAction<BasketItem>) => {
+    removeSingleItemFromBasket: (state, action: PayloadAction<BasketItem>) => {
+      const itemIndex = state.basket.findIndex(
+        (item: BasketItem) => item.id === action.payload.id
+      );
+      if (state.basket[itemIndex].quantity > 1) {
+        // item has more than 1 quantity so reduce quantity by 1
+        state.basket[itemIndex].quantity -= 1;
+      } else {
+        // item has single quantity so remove from basket
+        state.basket = state.basket.filter(
+          (item: BasketItem) => item.id !== action.payload.id
+        );
+      }
+    },
+    removeAllItemFromBasket: (state, action: PayloadAction<BasketItem>) => {
+      // remove all quantity of item from basket
       state.basket = state.basket.filter(
         (item: BasketItem) => item.id !== action.payload.id
       );
+    },
+    EmptyBasket: (state) => {
+      // remove everything from the basket
+      state.basket = [];
     },
   },
 });
 
 const { actions, reducer } = BasketSlice;
-export const { addItemToBasket, removeItemFromBasket } = actions;
+export const {
+  addItemToBasket,
+  removeSingleItemFromBasket,
+  removeAllItemFromBasket,
+  EmptyBasket,
+} = actions;
 export const BasketReducer = reducer;

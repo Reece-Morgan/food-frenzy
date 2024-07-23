@@ -2,7 +2,12 @@ import styled from "styled-components";
 import { BasketItem, Product } from "../../types";
 import colours from "../../settings/colours";
 import { useDispatch } from "react-redux";
-import { addItemToBasket } from "../../store/basket/basket";
+import {
+  addItemToBasket,
+  removeAllItemFromBasket,
+  removeSingleItemFromBasket,
+} from "../../store/basket/basket";
+import { useAppSelector } from "../../store";
 
 interface Props {
   product: Product;
@@ -10,6 +15,7 @@ interface Props {
 
 function ProductDetails({ product }: Props) {
   const dispatch = useDispatch();
+  const { basket } = useAppSelector((state) => state.Basket);
 
   const addProductToBasket = (item: Product) => {
     const basketItem: BasketItem = {
@@ -21,6 +27,31 @@ function ProductDetails({ product }: Props) {
     dispatch(addItemToBasket(basketItem));
   };
 
+  const removeSingleProductFromBasket = (item: Product) => {
+    const basketItem: BasketItem = {
+      name: item.name,
+      price: item.price,
+      id: item.id,
+      quantity: 1,
+    };
+    console.log(basketItem);
+    dispatch(removeSingleItemFromBasket(basketItem));
+  };
+
+  const removeAllProductFromBasket = (item: Product) => {
+    const basketItem: BasketItem = {
+      name: item.name,
+      price: item.price,
+      id: item.id,
+      quantity: 1,
+    };
+    dispatch(removeAllItemFromBasket(basketItem));
+  };
+
+  const amountInBasket = basket.find(
+    (item) => item.id === product.id
+  )?.quantity;
+
   return (
     <>
       <Details>
@@ -28,6 +59,17 @@ function ProductDetails({ product }: Props) {
         <Cost>£{product.price}</Cost>
       </Details>
       <Description>{product.description}</Description>
+      {amountInBasket && (
+        <AmountWrapper>
+          <p>{amountInBasket} in your basket</p>
+          <Remove onClick={() => removeSingleProductFromBasket(product)}>
+            Remove Single
+          </Remove>
+          <Remove onClick={() => removeAllProductFromBasket(product)}>
+            Remove All
+          </Remove>
+        </AmountWrapper>
+      )}
       <Button onClick={() => addProductToBasket(product)}>Add to Basket</Button>
     </>
   );
@@ -51,6 +93,20 @@ const Cost = styled.p`
 
 const Description = styled.p`
   margin: 5px 0 15px 0;
+`;
+
+const AmountWrapper = styled.div`
+  display: flex;
+  gap: 20px;
+`;
+
+const Remove = styled.p`
+  text-decoration: underline;
+  cursor: pointer;
+  font-weight: 600;
+  &:hover {
+    color: ${colours.tertiary};
+  }
 `;
 
 const Button = styled.button`

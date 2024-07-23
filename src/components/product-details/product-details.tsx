@@ -8,6 +8,7 @@ import {
   removeSingleItemFromBasket,
 } from "../../store/basket/basket";
 import { useAppSelector } from "../../store";
+import breakpoints from "../../settings/breakpoints";
 
 interface Props {
   product: Product;
@@ -53,15 +54,16 @@ function ProductDetails({ product }: Props) {
   )?.quantity;
 
   return (
-    <>
+    <Wrapper>
       <Details>
         <Name>{product.name}</Name>
         <Cost>£{product.price}</Cost>
       </Details>
       <Description>{product.description}</Description>
+      <Button onClick={() => addProductToBasket(product)}>Add to Basket</Button>
       {amountInBasket && (
         <AmountWrapper>
-          <p>{amountInBasket} in your basket</p>
+          <Amount>{amountInBasket} in your basket</Amount>
           <Remove onClick={() => removeSingleProductFromBasket(product)}>
             Remove Single
           </Remove>
@@ -70,12 +72,22 @@ function ProductDetails({ product }: Props) {
           </Remove>
         </AmountWrapper>
       )}
-      <Button onClick={() => addProductToBasket(product)}>Add to Basket</Button>
-    </>
+    </Wrapper>
   );
 }
 
 export default ProductDetails;
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  @media (min-width: ${breakpoints.tablet}) and (max-width: ${breakpoints.lg}) {
+    width: 50%;
+  }
+  @media (min-width: ${breakpoints.lg}) {
+    width: 33%;
+  }
+`;
 
 const Details = styled.div`
   display: flex;
@@ -98,12 +110,18 @@ const Description = styled.p`
 const AmountWrapper = styled.div`
   display: flex;
   gap: 20px;
+  margin: 5px 0 0 0;
+`;
+
+const Amount = styled.div`
+  margin: 0;
 `;
 
 const Remove = styled.p`
   text-decoration: underline;
   cursor: pointer;
   font-weight: 600;
+  margin: 0;
   &:hover {
     color: ${colours.tertiary};
   }

@@ -27,15 +27,11 @@ export default Header;
 
 const StyledHeader = styled.header`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
   border-bottom: 2px solid ${colours.background};
   padding: 0 20px;
-
-  @media (min-width: ${breakpoints.sm}) {
-    flex-direction: row;
-    justify-content: space-between;
-  }
 `;
 
 const List = styled.ul`

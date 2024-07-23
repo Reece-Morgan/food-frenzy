@@ -1,5 +1,11 @@
+import ProductList from "../components/product-list/product-list";
+
 function HomePage() {
-  return <p>This is the home page</p>;
+  return (
+    <>
+      <ProductList />
+    </>
+  );
 }
 
 export default HomePage;
